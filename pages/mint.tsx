@@ -7,35 +7,42 @@ import { Inter } from "@next/font/google";
 // import { getStatus } from "../lib/minting-utils";
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Mint() {
-  const { lucid, account, showToaster, hideToaster } = useCardano();
-  const name: string = "GCOINFT";
+const  Mint=()=> {
+  const name: string = "GNFT";
   const [mintAmount, setMintAmount] = useState(0);
+  const { lucid, account, showToaster, hideToaster } = useCardano();
+
+  // const name: string = "GNFT";
+  // const [mintAmount, setMintAmount] = useState(0);
   const [burnAmount, setBurnAmount] = useState(0);
   const [datum, setDatum] = useState<{ state: boolean; exchangeRate: bigint }>({
     state: false,
     exchangeRate: BigInt(0),
   });
+  
   const [totalAmount, setTotalAmount] = useState(0n);
-  const init = async () => {
-    if (!lucid || !account?.address || !setMintAmount) return;
-    utils.getDatumValue(lucid, name).then((r) => setDatum({ ...r }));
-    utils.getAddressAda(lucid, name).then((r) => setTotalAmount(r));
-  };
+
   useEffect(() => {
+    const init = async () => {
+      // const  lucid  = useCardano();
+      if (!lucid ) return;
+      utils.getDatumValue(lucid, name).then((r) => setDatum({ ...r }));
+      utils.getAddressAda(lucid, name).then((r) => setTotalAmount(r));
+    };
     init();
-  }, [lucid, account?.address, mintAmount, burnAmount]);
+  },  [lucid,name]);
 
   const mintNFT = useCallback(async () => {
     try {
       if (!lucid || !account?.address || !setMintAmount) return;
-
+      utils.getDatumValue(lucid, name).then((r) => setDatum({ ...r }));
+      utils.getAddressAda(lucid, name).then((r) => setTotalAmount(r));
       const nftTx = await utils.mintGcoin(lucid, mintAmount, name);
 
       showToaster("Minted NFT", `Transaction: ${nftTx}`);
     } catch (e) {
-      if (utility.isError(e)) showToaster("Could not mint NFT", e.message);
-      else if (typeof e === "string") showToaster("Could not mint NFT", e);
+      if (utility.isError(e)) showToaster("Could not mint Gcoin token", e.message);
+      else if (typeof e === "string") showToaster("Could not mint Gcoin token", e);
     }
   }, [lucid, account?.address, showToaster, mintAmount]);
 
@@ -44,10 +51,10 @@ export default function Mint() {
       if (!lucid || !account?.address || !burnAmount) return;
 
       const nftTx = await utils.burnGcoin(lucid, burnAmount, name);
-      showToaster("Minted NFT", `Transaction: ${nftTx}`);
+      showToaster("Burned", `Transaction: ${nftTx}`);
     } catch (e) {
-      if (utility.isError(e)) showToaster("Could not mint NFT", e.message);
-      else if (typeof e === "string") showToaster("Could not mint NFT", e);
+      if (utility.isError(e)) showToaster("Could not burn Gcoin token", e.message);
+      else if (typeof e === "string") showToaster("Could not burn Gcoin token", e);
     }
   }, [lucid, account?.address, showToaster, burnAmount]);
 
@@ -191,7 +198,7 @@ export default function Mint() {
 }
 
 
-
+export default Mint;
 
 
 
