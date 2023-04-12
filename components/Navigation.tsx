@@ -25,16 +25,18 @@ export const Navigation = () => {
           <button className={twMerge(className, isHome && activeClassName)}>home</button>
         </Link>
 
-        <Link href="/transact">
-          <button className={twMerge(className, isTransact && activeClassName)}>transact</button>
-        </Link>
+      
 
-        <Link href="/sign">
+        {/* <Link href="/sign">
           <button className={twMerge(className, isSign && activeClassName)}>Sign</button>
-        </Link>
+        </Link> */}
 
         <Link href="/mint">
           <button className={twMerge(className, isMint && activeClassName)}>Mint</button>
+        </Link>
+
+        <Link href="/transact">
+          <button className={twMerge(className, isTransact && activeClassName)}>Update</button>
         </Link>
       </div>
 

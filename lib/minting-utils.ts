@@ -1,4 +1,4 @@
-import { Lucid, MintingPolicy, PolicyId, TxHash, Unit, utf8ToHex } from "lucid-cardano"
+import { Lucid, MintingPolicy, PolicyId, TxHash, Unit, fromText } from "lucid-cardano"
 
 interface Options {
   lucid: Lucid
@@ -7,7 +7,7 @@ interface Options {
 }
 
 // fully qualified asset name, hex encoded policy id + name
-const getUnit = (policyId: PolicyId, name: string): Unit => policyId + utf8ToHex(name)
+const getUnit = (policyId: PolicyId, name: string): Unit => policyId + fromText(name)
 
 const getMintingPolicy = (lucid: Lucid, address: string) => {
   const { paymentCredential } = lucid.utils.getAddressDetails(address)
@@ -25,6 +25,7 @@ const getPolicyId = (lucid: Lucid, mintingPolicy: MintingPolicy) => {
 
   return policyId
 }
+
 
 export const mintNFT = async ({ lucid, address, name }: Options): Promise<TxHash> => {
   const mintingPolicy = getMintingPolicy(lucid, address)
