@@ -49,24 +49,29 @@ export default function Mint() {
 
       <div className="flex flex-row px-2.5 md:flex-row  justify-center w-full justify-around gap-4 place-content-center justify-center ">
         <div className="w-[500px] max-w-[90%] h-[550px] mt-10 shadow-sm bg-slate-800 rounded-xl flex items-center flex-col p-8 ">
-          <div className="rounded-xl text-xl font-bold mb-6 text-white">
-            Update Handler 
+          <div className="rounded-xl text-xl font-bold  text-white">
+            Update Exchange Rate Value 
           </div>
 
           <input
+        
           type="number"
             className="block w-3/5 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             name="message"
             placeholder="amount"
             onChange={(e) => setExchangeAmount(BigInt(e.target.value))}
           />
+            <div className="rounded-xl text-xl font-bold mt-5 text-white">
+              Update Handler State Value 
+            </div>
             <select 
               id="boolean-input" 
-              className="block w-3/5 mt-5 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="block w-3/5 mt-1 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               name="boolean-input"
               value={stateValue.toString()}
               onChange= {(e) => setStateValue(e.target.value === "true" ? true : false)}
             >
+
               <option value="true">True</option>
               <option value="false">False</option>
               
