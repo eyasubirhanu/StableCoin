@@ -10,8 +10,8 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Mint() {
   const { lucid, account, showToaster, hideToaster } = useCardano();
   const name: string = "GNFT";
-  const [stateValue, setStateValue] = useState(Boolean)
-  const [exchangeRateAmount, setExchangeAmount] = useState(BigInt(0))
+  const [stateValue, setStateValue] = useState(Boolean);
+  const [exchangeRateAmount, setExchangeAmount] = useState(BigInt(0));
   const upDate = useCallback(async () => {
     try {
       if (!lucid || !account?.address || !setExchangeAmount || !setStateValue) return;
@@ -27,7 +27,7 @@ export default function Mint() {
 
  
   const canMint = useMemo(
-    () => lucid && account?.address && stateValue && exchangeRateAmount,
+    () => lucid && account?.address && exchangeRateAmount>0 ,
     [lucid, account?.address, stateValue,exchangeRateAmount]
   );
 
@@ -54,19 +54,33 @@ export default function Mint() {
           </div>
 
           <input
+          type="number"
             className="block w-3/5 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             name="message"
             placeholder="amount"
-            // value={exchangeRateAmount || ""}
             onChange={(e) => setExchangeAmount(BigInt(e.target.value))}
           />
-            <input
+            <select 
+              id="boolean-input" 
+              className="block w-3/5 mt-5 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              name="boolean-input"
+              value={stateValue.toString()}
+              onChange= {(e) => setStateValue(e.target.value === "true" ? true : false)}
+            >
+              <option value="true">True</option>
+              <option value="false">False</option>
+              
+            </select>
+       
+            {/* <input
+            
+            type="text"
             className="block w-3/5 mt-5 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            name="message"
-            placeholder="true/false"
-            // value={stateValue || ""}
+            name="boolean"
+            placeholder="true"
+            value="true"
             onChange={(e) => setStateValue(Boolean(e.target.value))}
-          />
+          /> */}
           {/* </label> */}
           <button
             disabled={!canMint}
